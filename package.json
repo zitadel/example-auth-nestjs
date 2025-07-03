@@ -1,0 +1,30 @@
+{
+  "name": "example-nestjs-auth",
+  "main": "index.js",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspace=passport-zitadel && npm run build --workspace=demo-app",
+    "dev": "npm run dev --workspace=demo-app",
+    "start": "npm run start --workspace=demo-app",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "type": "module",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@tsconfig/node20": "^20.1.6",
+    "@types/node": "^24.0.1",
+    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@typescript-eslint/parser": "^8.34.0",
+    "eslint": "^9.29.0",
+    "globals": "^16.2.0",
+    "prettier": "^3.1.1",
+    "typescript": "^5.8.3",
+    "knip": "^5.43.6"
+  }
+}

@@ -1,0 +1,3 @@
+export const ZITADEL_STRATEGY_NAME = 'zitadel';
+
+export const ZITADEL_STRATEGY_PROVIDER = Symbol('ZITADEL_STRATEGY_PROVIDER');

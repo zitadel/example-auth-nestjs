@@ -1,0 +1,72 @@
+{{! packages/demo-app/res/login.hbs }}
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensures it takes full viewport height */
+    margin: 0;
+    background-color: #f4f7f6; /* Light background for contrast */
+    font-family: 'Inter', sans-serif; /* Using Inter font */
+    color: #333;
+  }
+  .login-container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px; /* Rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    max-width: 400px; /* Max width for better readability */
+    width: 90%; /* Responsive width */
+  }
+  h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2em;
+  }
+  p {
+    margin-bottom: 30px;
+    line-height: 1.6;
+    color: #555;
+  }
+  .login-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background: linear-gradient(
+      145deg,
+      #007bff,
+      #0056b3
+    ); /* Gradient background */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px; /* Rounded corners */
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Button shadow */
+    border: none; /* No default border */
+    cursor: pointer; /* Indicate clickable */
+  }
+  .login-button:hover {
+    background: linear-gradient(
+      145deg,
+      #0056b3,
+      #007bff
+    ); /* Invert gradient on hover */
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4); /* Larger shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+  }
+  .login-button:active {
+    transform: translateY(0); /* Press effect */
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
+  }
+</style>
+
+<div class='login-container'>
+  <h1>{{pageTitle}}</h1>
+  <p>Click the button below to proceed to the ZITADEL login page.</p>
+  <a href='{{loginUrl}}' class='login-button'>
+    Log in with ZITADEL
+  </a>
+</div>

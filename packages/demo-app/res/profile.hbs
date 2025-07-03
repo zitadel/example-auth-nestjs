@@ -1,0 +1,57 @@
+{{! packages/demo-app/res/profile.hbs }}
+<style>
+  .code-block {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 20px;
+    overflow-x: auto; /* Allows horizontal scrolling for long lines */
+    font-family:
+      'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    color: #333;
+  }
+  .logout-button-container {
+    margin-top: 30px;
+    text-align: center;
+  }
+  .auth-button.logout {
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(
+      145deg,
+      #dc3545,
+      #c82333
+    ); /* Red gradient for logout */
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+    border: none;
+    cursor: pointer;
+  }
+  .auth-button.logout:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(220, 53, 69, 0.4);
+  }
+  .auth-button.logout:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(220, 53, 69, 0.2);
+  }
+</style>
+
+<h1>{{pageTitle}}</h1>
+
+<p>Here are your authenticated user details:</p>
+
+<div class='code-block'>
+  <pre><code>{{{userJson}}}</code></pre>
+</div>
+
+<div class='logout-button-container'>
+  <a href='{{logoutUrl}}' class='auth-button logout'>Logout</a>
+</div>
