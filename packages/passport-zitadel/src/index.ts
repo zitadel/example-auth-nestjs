@@ -34,14 +34,35 @@ export interface ZitadelStrategyOptions {
 }
 
 /**
- * Options for building the RP-Initiated Logout URL.
+ * Options for building an OpenID Connect RP‑Initiated Logout URL.
+ *
+ * Only `id_token_hint`, `post_logout_redirect_uri`, and `state` are typically required.
+ * Other fields are optional and only needed for specific OP behaviors.
  */
 export interface LogoutUrlOptions {
   /**
-   * The ID token of the logged-in user. This is a hint to the
-   * provider about which session to end.
+   * The ID Token previously issued to the user. Used by the OP to identify and
+   * terminate the correct session. Strongly recommended when available.
+   *
+   * Sent as the `id_token_hint` query parameter.
    */
   id_token_hint?: string;
+
+  /**
+   * Hint about the user being logged out (e.g., their subject identifier or
+   * login name). Useful when you don’t have an ID Token.
+   *
+   * Sent as `logout_hint`.
+   */
+  logout_hint?: string;
+
+  /**
+   * Space‑separated list of BCP47 language tags to control the OP logout UI
+   * language (e.g., "en fi").
+   *
+   * Sent as `ui_locales`.
+   */
+  ui_locales?: string;
 }
 
 // Internal strategy options, extending the base OIDC options.
@@ -96,9 +117,10 @@ export class ZitadelStrategy extends OpenIDConnectStrategy {
     return oidc
       .buildEndSessionUrl(this.config, {
         post_logout_redirect_uri: this.postLogoutRedirectUrl,
-        ...(options?.id_token_hint && {
-          id_token_hint: options?.id_token_hint,
-        }),
+        client_id: this.config.clientMetadata().client_id,
+        ...(options.id_token_hint && { id_token_hint: options.id_token_hint }),
+        ...(options.logout_hint && { logout_hint: options.logout_hint }),
+        ...(options.ui_locales && { ui_locales: options.ui_locales }),
         state: randomUUID(),
       })
       .toString();

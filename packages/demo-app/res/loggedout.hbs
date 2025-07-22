@@ -1,0 +1,56 @@
+<!--suppress HtmlDeprecatedAttribute -->
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+    <title>Signed Out - Demo Application</title>
+    <!--suppress JSUnresolvedLibraryURL -->
+    <script src='https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4'></script>
+    <link
+      rel='icon'
+      href='https://www.svgrepo.com/show/373872/nestjs.svg'
+      type='image/svg+xml'
+    />
+  </head>
+  <body class='bg-gray-50 min-h-screen flex items-center justify-center'>
+    <div class='max-w-md mx-auto text-center px-6'>
+      <div
+        class='bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-8'
+      >
+        <div class='flex items-center justify-center mb-6'>
+          <div
+            class='w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center'
+          >
+            <svg
+              class='w-8 h-8 text-white'
+              fill='currentColor'
+              viewBox='0 0 20 20'
+            >
+              <path
+                fill-rule='evenodd'
+                d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z'
+                clip-rule='evenodd'
+              />
+            </svg>
+          </div>
+        </div>
+        <h1 class='text-2xl font-bold text-blue-900 mb-4'>Successfully Signed
+          Out</h1>
+        <p class='text-blue-800 mb-6'>You have been securely logged out of the
+          application.</p>
+        <div class='text-sm text-blue-700'>
+          <p>Redirecting in
+            <span id='countdown' class='font-semibold'>3</span></p>
+        </div>
+      </div>
+    </div>
+
+    <script type='text/javascript'>
+      let countdown = 3; const countdownElement =
+      document.getElementById('countdown'); const timer = setInterval(() => {
+      countdown--; countdownElement.textContent = countdown + " seconds..."; if
+      (countdown <= 0) { clearInterval(timer); window.location.href = '/'; } },
+      1000);
+    </script>
+  </body>
+</html>

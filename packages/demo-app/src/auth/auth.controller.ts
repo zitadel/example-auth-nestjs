@@ -35,7 +35,10 @@ export class AuthController {
     @User() user: ZitadelUser | null,
   ): void {
     const id_token_hint = user ? user.id_token : undefined;
-    const logoutUrl = this.zitadelStrategy.getLogoutUrl({ id_token_hint });
+    const logoutUrl = this.zitadelStrategy.getLogoutUrl({
+      id_token_hint,
+      logout_hint: user?.sub,
+    });
 
     req.logout((err: Error) => {
       if (err) {
