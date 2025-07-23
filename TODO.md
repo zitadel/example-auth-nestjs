@@ -1,1 +1,0 @@
-No salt for cookie?
