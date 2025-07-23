@@ -52,7 +52,7 @@ interface Config {
    * long a user's session will remain valid. Defaults to 1 hour
    * (3,600,000 ms).
    */
-  SESSION_DURATION?: string;
+  SESSION_DURATION: number;
   /**
    * The network port on which the NestJS server will listen for
    * incoming connections. Defaults to 3000 if not specified.
@@ -64,10 +64,6 @@ interface Config {
    * certain features, like secure cookies.
    */
   NODE_ENV?: string;
-  /**
-   * The maximum age of the session cookie in milliseconds.
-   */
-  SESSION_COOKIE_MAX_AGE: number;
   /**
    * The path for which the session cookie is valid.
    */
@@ -107,7 +103,6 @@ const config: Required<
     | 'ZITADEL_POST_LOGOUT_URL'
     | 'SESSION_SECRET'
     | 'SESSION_SALT'
-    | 'SESSION_COOKIE_MAX_AGE'
     | 'SESSION_COOKIE_PATH'
     | 'SESSION_COOKIE_SECURE'
   >
@@ -121,10 +116,9 @@ const config: Required<
   ZITADEL_POST_LOGOUT_URL: process.env.ZITADEL_POST_LOGOUT_URL ?? '/',
   SESSION_SECRET: must('SESSION_SECRET'),
   SESSION_SALT: must('SESSION_SALT'),
-  SESSION_DURATION: process.env.SESSION_DURATION,
+  SESSION_DURATION: Number(process.env.SESSION_DURATION ?? '3600000'),
   PORT: process.env.PORT ?? '3000',
   NODE_ENV: process.env.NODE_ENV,
-  SESSION_COOKIE_MAX_AGE: Number(process.env.SESSION_DURATION ?? '3600000'),
   SESSION_COOKIE_PATH: process.env.SESSION_COOKIE_PATH ?? '/',
   SESSION_COOKIE_SECURE: process.env.NODE_ENV === 'production',
 };

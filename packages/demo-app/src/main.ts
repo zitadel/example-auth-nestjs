@@ -32,7 +32,7 @@ async function bootstrap(): Promise<void> {
     browserSession({
       name: 'sid',
       keys: [config.SESSION_SECRET],
-      maxAge: config.SESSION_COOKIE_MAX_AGE * 1000, // ms
+      maxAge: config.SESSION_DURATION,
       httpOnly: true,
       secure: config.SESSION_COOKIE_SECURE,
       sameSite: 'lax',
@@ -47,4 +47,5 @@ async function bootstrap(): Promise<void> {
   console.log(`⇢ Application is running on: ${await app.getUrl()}`);
 }
 
+// noinspection JSIgnoredPromiseFromCall
 bootstrap();
