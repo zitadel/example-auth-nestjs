@@ -54,7 +54,7 @@ interface Config {
    */
   SESSION_DURATION?: string;
   /**
-   * The network port on which the Fastify server will listen for
+   * The network port on which the NestJS server will listen for
    * incoming connections. Defaults to 3000 if not specified.
    */
   PORT: string;

@@ -2,7 +2,7 @@
   "name": "demo-app",
   "version": "1.0.0",
   "private": true,
-  "description": "Demo Fastify app using the passport-zitadel library.",
+  "description": "Demo NestJS app using the passport-zitadel library.",
   "main": "dist/main.js",
   "type": "module",
   "scripts": {
@@ -16,17 +16,17 @@
     "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^11.1.3",
     "cookie-parser": "^1.4.7",
+    "cookie-session": "^2.1.1",
     "dotenv": "^16.5.0",
     "express-handlebars": "^8.0.1",
-    "express-session": "^1.18.1",
     "passport": "^0.7.0",
     "passport-zitadel": "^1.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.7",
     "@types/cookie-parser": "^1.4.9",
+    "@types/cookie-session": "^2.0.49",
     "@types/express": "^5.0.3",
-    "@types/express-session": "^1.18.2",
     "@types/passport": "^1.0.17"
   }
 }

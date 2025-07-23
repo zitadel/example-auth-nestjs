@@ -1,7 +1,6 @@
 import 'dotenv/config';
 
 import { NestFactory } from '@nestjs/core';
-import session from 'express-session';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module.js';
@@ -9,7 +8,8 @@ import config from './config.js';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import * as exphbs from 'express-handlebars';
+import * as templateLang from 'express-handlebars';
+import { browserSession } from './session.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -17,7 +17,7 @@ async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.engine(
     'hbs',
-    exphbs.engine({
+    templateLang.engine({
       extname: '.hbs',
       defaultLayout: 'main',
       layoutsDir: join(__dirname, '..', 'res'),
@@ -28,18 +28,15 @@ async function bootstrap(): Promise<void> {
   app.set('views', join(__dirname, '..', 'res'));
 
   app.use(cookieParser());
-
   app.use(
-    session({
-      secret: config.SESSION_SECRET,
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        httpOnly: true,
-        secure: config.SESSION_COOKIE_SECURE,
-        maxAge: config.SESSION_COOKIE_MAX_AGE * 1000,
-        path: config.SESSION_COOKIE_PATH,
-      },
+    browserSession({
+      name: 'sid',
+      keys: [config.SESSION_SECRET],
+      maxAge: config.SESSION_COOKIE_MAX_AGE * 1000, // ms
+      httpOnly: true,
+      secure: config.SESSION_COOKIE_SECURE,
+      sameSite: 'lax',
+      path: config.SESSION_COOKIE_PATH,
     }),
   );
 
