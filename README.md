@@ -132,7 +132,6 @@ Remember to:
 
 ## Resources
 
-- **Example App Repository:** [Link to your future GitHub repository]
 - **NestJS Documentation:** <https://docs.nestjs.com/>
 - **NestJS Authentication:** <https://docs.nestjs.com/security/authentication>
 - **NestJS Passport:** <https://docs.nestjs.com/recipes/passport>
