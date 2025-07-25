@@ -10,6 +10,7 @@ import {
 } from './constants.js';
 import { AuthenticatedGuard } from './guards/authenticated.guard.js';
 import { ZitadelAuthGuard } from './guards/zitadel.guard.js';
+import { ZITADEL_SCOPES } from './scopes.js';
 
 @Module({
   imports: [PassportModule],
@@ -23,7 +24,7 @@ import { ZitadelAuthGuard } from './guards/zitadel.guard.js';
           clientId: config.ZITADEL_CLIENT_ID,
           clientSecret: config.ZITADEL_CLIENT_SECRET,
           callbackURL: config.ZITADEL_CALLBACK_URL,
-          scope: 'openid profile email',
+          scope: ZITADEL_SCOPES,
           postLogoutRedirectUrl: config.ZITADEL_POST_LOGOUT_URL,
         });
 
