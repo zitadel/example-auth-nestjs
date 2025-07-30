@@ -16,15 +16,15 @@
   "type": "module",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@eslint/js": "^9.29.0",
+    "@eslint/js": "^9.32.0",
     "@tsconfig/node20": "^20.1.6",
-    "@types/node": "^24.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.34.0",
+    "@types/node": "^24.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.34.0",
-    "eslint": "^9.29.0",
-    "globals": "^16.2.0",
+    "eslint": "^9.32.0",
+    "globals": "^16.3.0",
     "prettier": "^3.1.1",
     "typescript": "^5.8.3",
-    "knip": "^5.43.6"
+    "knip": "^5.62.0"
   }
 }
