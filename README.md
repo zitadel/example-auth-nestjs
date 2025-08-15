@@ -1,20 +1,20 @@
-# Nest.js with ZITADEL
+# Hono with ZITADEL
 
-[NestJS](https://nestjs.com/) is a progressive Node.js framework for building efficient and scalable server-side applications. In a traditional setup, often called a "Backend for Frontend" (BFF), your NestJS server manages both your application's logic and renders the web pages that users see.
+[Hono](https://hono.dev/) is a small, simple, and ultrafast web framework for the Edges. It works on Cloudflare Workers, Fastly Compute, Deno, Bun, Vercel, Netlify, AWS Lambda, Lambda@Edge, and Node.js. In a modern setup, your Hono application manages both your application's frontend and backend logic through server-side routes and middleware.
 
-To secure such an application, you need a reliable way to handle user logins. For the NestJS ecosystem, the built-in [Authentication module](https://docs.nestjs.com/security/authentication) with [Passport integration](https://docs.nestjs.com/recipes/passport) is the standard and recommended approach for authentication. Think of it as a flexible security guard for your app. This guide demonstrates how to use NestJS Authentication with Passport to implement a secure login with ZITADEL.
+To secure such an application, you need a reliable way to handle user logins. For the Hono ecosystem, [Auth.js](https://authjs.dev/) (formerly NextAuth.js) is the standard and recommended library for authentication. Think of it as a flexible security guard for your app. This guide demonstrates how to use Auth.js with a Hono application to implement a secure login with ZITADEL.
 
 We'll be using the **OpenID Connect (OIDC)** protocol with the **Authorization Code Flow + PKCE**. This is the industry-best practice for security, ensuring that the login process is safe from start to finish. You can learn more in our [guide to OAuth 2.0 recommended flows](https://zitadel.com/docs/guides/integrate/login/oidc/oauth-recommended-flows).
 
-This example uses **@nestjs/passport**, the standard for NestJS authentication. While ZITADEL doesn't offer a specific SDK, NestJS's Passport integration is highly modular. It works with a "strategy" that handles the communication with ZITADEL. Under the hood, this example uses the powerful [`openid-client`](https://github.com/panva/node-openid-client) library to manage the secure OIDC PKCE flow.
+This example uses **Auth.js**, the standard for Hono authentication. While ZITADEL doesn't offer a specific SDK, Auth.js is highly modular. It works with a "provider" that handles the communication with ZITADEL. Under the hood, this example uses the powerful OIDC standard to manage the secure PKCE flow.
 
 Check out our Example Application to see it in action.
 
 ## Example Application
 
-The example repository includes a complete NestJS application, ready to run, that demonstrates how to integrate ZITADEL for user authentication.
+The example repository includes a complete Hono application, ready to run, that demonstrates how to integrate ZITADEL for user authentication.
 
-This example application showcases a typical web app authentication pattern: users start on a public landing page, click a login button to authenticate with ZITADEL, and are then redirected to a protected profile page displaying their user information. The app also includes secure logout functionality that clears the session and redirects users back to ZITADEL's logout endpoint. All protected routes are automatically secured using NestJS Guards, ensuring only authenticated users can access sensitive areas of your application.
+This example application showcases a typical web app authentication pattern: users start on a public landing page, click a login button to authenticate with ZITADEL, and are then redirected to a protected profile page displaying their user information. The app also includes secure logout functionality that clears the session and redirects users back to ZITADEL's logout endpoint. All protected routes are automatically secured using Auth.js middleware and session management, ensuring only authenticated users can access sensitive areas of your application.
 
 ### Prerequisites
 
@@ -23,6 +23,7 @@ Before you begin, ensure you have the following:
 #### System Requirements
 
 - Node.js (v20 or later is recommended)
+- npm, yarn, or pnpm package manager
 
 #### Account Setup
 
@@ -31,16 +32,16 @@ You'll need a ZITADEL account and application configured. Follow the [ZITADEL do
 > **Important:** Configure the following URLs in your ZITADEL application settings:
 >
 > - **Redirect URIs:** Add `http://localhost:3000/auth/callback` (for development)
-> - **Post Logout Redirect URIs:** Add `http://localhost:3000` (for development)
+> - **Post Logout Redirect URIs:** Add `http://localhost:3000/auth/logout/callback` (for development)
 >
-> These URLs must exactly match what your NestJS application uses. For production, add your production URLs.
+> These URLs must exactly match what your Hono application uses. For production, add your production URLs.
 
 ### Configuration
 
-To run the application, you first need to copy the `.env.example` file to a new file named `.env` and fill in your ZITADEL application credentials.
+To run the application, you first need to copy the `.env.example` file to a new file named `.env.local` and fill in your ZITADEL application credentials.
 
 ```dotenv
-# Port number where your Nest server will listen for incoming HTTP requests.
+# Port number where your Hono server will listen for incoming HTTP requests.
 # Change this if port 3000 is already in use on your system.
 PORT=3000
 
@@ -63,9 +64,13 @@ ZITADEL_DOMAIN="https://your-zitadel-domain"
 # request.
 ZITADEL_CLIENT_ID="your-client-id"
 
-# Client Secret for confidential applications. Leave empty for public clients.
-# Only required if you selected "Confidential" when creating your ZITADEL app.
-ZITADEL_CLIENT_SECRET=""
+# While the Authorization Code Flow with PKCE for public clients
+# does not strictly require a client secret for OIDC specification compliance,
+# AuthJS will still require a value for its internal configuration.
+# Therefore, please provide a randomly generated string here.
+# You can generate a secure key using:
+# node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+ZITADEL_CLIENT_SECRET="your-randomly-generated-client-secret"
 
 # OAuth callback URL where ZITADEL redirects after user authentication. This
 # MUST exactly match a Redirect URI configured in your ZITADEL application.
@@ -73,11 +78,11 @@ ZITADEL_CALLBACK_URL="http://localhost:3000/auth/callback"
 
 # URL where users are redirected after logout. This should match a Post Logout
 # Redirect URI configured in your ZITADEL application settings.
-ZITADEL_POST_LOGOUT_URL="http://localhost:3000"
+ZITADEL_POST_LOGOUT_URL="http://localhost:3000/auth/logout/callback"
 
-# Internal redirect destination after successful login. This is where your app
-# sends users after ZITADEL confirms authentication. Defaults to "/profile".
-ZITADEL_POST_LOGIN_URL="/profile"
+# Auth.js base URL for your application. In development, this is typically
+# http://localhost:3000. In production, use your actual domain.
+NEXTAUTH_URL="http://localhost:3000"
 ```
 
 ### Installation and Running
@@ -86,9 +91,9 @@ Follow these steps to get the application running:
 
 ```bash
 # 1. Clone the repository
-git clone git@github.com:zitadel/example-auth-nestjs.git
+git clone git@github.com:zitadel/example-auth-hono.git
 
-cd example-auth-nestjs
+cd example-auth-hono
 
 # 2. Install the project dependencies
 npm install
@@ -99,15 +104,42 @@ npm run dev
 
 The application will now be running at `http://localhost:3000`.
 
+## Key Features
+
+### PKCE Authentication Flow
+
+The application implements the secure Authorization Code Flow with PKCE (Proof Key for Code Exchange), which is the recommended approach for modern web applications.
+
+### Session Management
+
+Built-in session management with Auth.js handles user authentication state across your application, with automatic token refresh and secure session storage.
+
+### Route Protection
+
+Protected routes automatically redirect unauthenticated users to the login flow, ensuring sensitive areas of your application remain secure.
+
+### Logout Flow
+
+Complete logout implementation that properly terminates both the local session and the ZITADEL session, with proper redirect handling.
+
 ## TODOs
 
-### 1. Security headers (Helmet)
+### 1. Security headers (Hono built-in)
 
-**Not enabled yet.** Add [`helmet`](https://www.npmjs.com/package/helmet) before production using NestJS middleware:
+**Partially enabled.** Hono includes some security headers by default, but consider adding custom headers in your application:
 
-```typescript
-import helmet from 'helmet';
-app.use(helmet());
+```javascript
+import { secureHeaders } from 'hono/secure-headers';
+
+app.use(
+  '*',
+  secureHeaders({
+    contentSecurityPolicy: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-eval'", "'unsafe-inline'"],
+    },
+  }),
+);
 ```
 
 At minimum, configure:
@@ -117,22 +149,8 @@ At minimum, configure:
 - `Referrer-Policy`
 - `Permissions-Policy`
 
-### 2. No CSRF protection yet
-
-State‑changing routes (logout, future POST/PUT/DELETE) are currently vulnerable.
-Add CSRF protection using NestJS built-in [`@nestjs/csrf`](https://docs.nestjs.com/security/csrf) or [`csurf`](https://www.npmjs.com/package/csurf)
-
-Remember to:
-
-- Make logout a **POST**.
-- Embed the CSRF token in a hidden form field or send it via `X-CSRF-Token` header.
-- Set cookies with `SameSite=Lax` or stricter.
-
-> OWASP reference: <https://owasp.org/www-community/attacks/csrf>
-
 ## Resources
 
-- **NestJS Documentation:** <https://docs.nestjs.com/>
-- **NestJS Authentication:** <https://docs.nestjs.com/security/authentication>
-- **NestJS Passport:** <https://docs.nestjs.com/recipes/passport>
-- **NestJS Session:** <https://docs.nestjs.com/techniques/session>
+- **Hono Documentation:** <https://hono.dev/>
+- **Auth.js Documentation:** <https://authjs.dev/>
+- **ZITADEL Documentation:** <https://zitadel.com/docs>

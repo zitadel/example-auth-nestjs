@@ -1,20 +1,22 @@
 import 'dotenv/config';
 
 import { NestFactory } from '@nestjs/core';
-import passport from 'passport';
-import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module.js';
-import config from './config.js';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import * as templateLang from 'express-handlebars';
-import { browserSession } from './session.js';
+import cookieParser from 'cookie-parser';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
+  app.use(cookieParser());
+  app.useStaticAssets(join(__dirname, '..', 'public'), {
+    prefix: '/static',
+  });
   app.engine(
     'hbs',
     templateLang.engine({
@@ -27,23 +29,7 @@ async function bootstrap(): Promise<void> {
   app.set('view engine', 'hbs');
   app.set('views', join(__dirname, '..', 'res'));
 
-  app.use(cookieParser());
-  app.use(
-    browserSession({
-      name: 'sid',
-      keys: [config.SESSION_SECRET],
-      maxAge: config.SESSION_DURATION,
-      httpOnly: true,
-      secure: config.SESSION_COOKIE_SECURE,
-      sameSite: 'lax',
-      path: config.SESSION_COOKIE_PATH,
-    }),
-  );
-
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  await app.listen(config.PORT);
+  await app.listen(Number(process.env.PORT || 3000));
   console.log(`⇢ Application is running on: ${await app.getUrl()}`);
 }
 
