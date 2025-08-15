@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@auth/core": "^0.40.0",
-    "@mridang/nestjs-auth": "^1.2.1",
+    "@mridang/nestjs-auth": "^1.3.0",
     "@nestjs/common": "^11.1.3",
     "@nestjs/core": "^11.1.3",
     "@nestjs/platform-express": "^11.1.5",
