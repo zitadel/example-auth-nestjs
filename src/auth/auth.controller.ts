@@ -93,7 +93,7 @@ export class AuthController {
   }
 
   /**
-   * GET /auth/signin
+   * GET /auth/login
    *
    * Renders a custom sign-in page that displays available authentication providers
    * and handles authentication errors with user-friendly messaging. This page is
@@ -127,7 +127,7 @@ export class AuthController {
   @Get('login')
   @Public()
   @Render('auth/login')
-  getSignin(
+  getLogin(
     @Query('callbackUrl') callbackUrl?: string,
     @Query('error') error?: string,
   ): {
