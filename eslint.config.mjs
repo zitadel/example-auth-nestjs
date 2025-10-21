@@ -25,4 +25,20 @@ export default [
       ...tsPlugin.configs.recommended.rules,
     },
   },
+  {
+    files: [
+      '**/*.test.ts',
+      '**/*.test.js',
+      '**/*.spec.ts',
+      '**/*.spec.js',
+      'test/**/*.ts',
+      'test/**/*.js',
+    ],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+        ...globals.node,
+      },
+    },
+  },
 ];
