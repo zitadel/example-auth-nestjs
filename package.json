@@ -2,6 +2,7 @@
   "name": "example-nestjs-auth",
   "main": "index.js",
   "scripts": {
+	"prepack": "tsc",
     "dev": "nest start --watch",
     "build": "nest build",
     "start": "node dist/main",
