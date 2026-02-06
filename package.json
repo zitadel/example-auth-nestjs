@@ -3,12 +3,12 @@
   "main": "index.js",
   "scripts": {
     "prepack": "tsc",
+    "start": "nest start --watch",
     "dev": "nest start --watch",
     "build": "nest build",
     "test": "jest --verbose --config=jest.config.mjs --runInBand",
     "test:watch": "npm run test -- --watch",
     "test:debug": "jest --verbose --config=jest.config.mjs --runInBand --detectOpenHandles",
-    "start": "node dist/main",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
