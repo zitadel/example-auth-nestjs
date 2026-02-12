@@ -2,11 +2,11 @@
 
 [NestJS](https://nestjs.com/) is a progressive Node.js framework for building efficient, reliable, and scalable server-side applications. It uses modern JavaScript, is built with TypeScript, and combines elements of Object Oriented Programming, Functional Programming, and Functional Reactive Programming. NestJS provides a robust architecture with modules, controllers, and dependency injection out of the box.
 
-To secure such an application, you need a reliable way to handle user logins. For the NestJS ecosystem, this example uses [@mridang/nestjs-auth](https://github.com/mridang/nestjs-auth), a NestJS wrapper around [Auth.js](https://authjs.dev/) (formerly NextAuth.js). Think of it as a flexible security guard for your app. This guide demonstrates how to use Auth.js with a NestJS application to implement a secure login with ZITADEL.
+To secure such an application, you need a reliable way to handle user logins. For the NestJS ecosystem, this example uses [@zitadel/nestjs-auth](https://github.com/zitadel/nestjs-auth), a NestJS wrapper around [Auth.js](https://authjs.dev/) (formerly NextAuth.js). Think of it as a flexible security guard for your app. This guide demonstrates how to use Auth.js with a NestJS application to implement a secure login with ZITADEL.
 
 We'll be using the **OpenID Connect (OIDC)** protocol with the **Authorization Code Flow + PKCE**. This is the industry-best practice for security, ensuring that the login process is safe from start to finish. You can learn more in our [guide to OAuth 2.0 recommended flows](https://zitadel.com/docs/guides/integrate/login/oidc/oauth-recommended-flows).
 
-This example uses **@mridang/nestjs-auth**, which integrates Auth.js seamlessly into NestJS applications. While ZITADEL doesn't offer a specific SDK, Auth.js is highly modular. It works with a "provider" that handles the communication with ZITADEL. Under the hood, this example uses the powerful OIDC standard to manage the secure PKCE flow.
+This example uses **@zitadel/nestjs-auth**, which integrates Auth.js seamlessly into NestJS applications. While ZITADEL doesn't offer a specific SDK, Auth.js is highly modular. It works with a "provider" that handles the communication with ZITADEL. Under the hood, this example uses the powerful OIDC standard to manage the secure PKCE flow.
 
 Check out our Example Application to see it in action.
 
@@ -182,6 +182,6 @@ At minimum, configure:
 ## Resources
 
 - **NestJS Documentation:** <https://nestjs.com/>
-- **@mridang/nestjs-auth:** <https://github.com/mridang/nestjs-auth>
+- **@zitadel/nestjs-auth:** <https://github.com/zitadel/nestjs-auth>
 - **Auth.js Documentation:** <https://authjs.dev/>
 - **ZITADEL Documentation:** <https://zitadel.com/docs>
