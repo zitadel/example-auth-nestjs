@@ -1,6 +1,6 @@
 import { Controller, Get, Render } from '@nestjs/common';
-import { Public, AuthSession } from '@mridang/nestjs-auth';
-import type { Session } from '@mridang/nestjs-auth';
+import { Public, AuthSession } from '@zitadel/nestjs-auth';
+import type { Session } from '@zitadel/nestjs-auth';
 
 @Controller()
 export class AppController {
