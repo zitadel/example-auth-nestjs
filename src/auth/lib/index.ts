@@ -6,7 +6,7 @@ import { Account, Profile, User } from '@auth/core/types';
 import { ZITADEL_SCOPES } from './scopes.js';
 import { AdapterUser } from '@auth/core/adapters';
 import config from './config.js';
-import { IAuthModuleOptions, Session } from '@mridang/nestjs-auth';
+import { IAuthModuleOptions, Session } from '@zitadel/nestjs-auth';
 
 /**
  * Automatically refreshes an expired access token using the refresh token.

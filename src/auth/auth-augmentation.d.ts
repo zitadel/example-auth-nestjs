@@ -1,7 +1,7 @@
 // src/types/auth-augmentation.d.ts
-import '@mridang/nestjs-auth';
+import '@zitadel/nestjs-auth';
 
-declare module '@mridang/nestjs-auth' {
+declare module '@zitadel/nestjs-auth' {
   interface SessionAugmentation {
     idToken?: string;
     accessToken?: string;

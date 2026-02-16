@@ -10,8 +10,8 @@ import {
   Req,
 } from '@nestjs/common';
 import type { Request, Response } from 'express';
-import { Public, AuthSession as SessionParam } from '@mridang/nestjs-auth';
-import type { Session } from '@mridang/nestjs-auth';
+import { Public, AuthSession as SessionParam } from '@zitadel/nestjs-auth';
+import type { Session } from '@zitadel/nestjs-auth';
 import { getMessage } from './lib/message.js';
 import { authConfig, buildLogoutUrl } from './lib/index.js';
 import config from './lib/config.js';
