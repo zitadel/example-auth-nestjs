@@ -34,6 +34,7 @@
     "@angular-devkit/core": {
       "ajv": "8.18.0"
     },
+    "path-to-regexp": "8.4.0",
     "picomatch": "4.0.4"
   },
   "devDependencies": {
