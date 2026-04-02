@@ -1,9 +1,7 @@
 {
   "name": "ZITADEL Example NestJS Auth",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:22-bookworm",
-  "forwardPorts": [
-    3000
-  ],
+  "forwardPorts": [3000],
   "portsAttributes": {
     "3000": {
       "label": "Application",
@@ -17,10 +15,7 @@
   "updateContentCommand": "npm ci",
   "customizations": {
     "vscode": {
-      "extensions": [
-        "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode"
-      ]
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
     }
   }
 }
