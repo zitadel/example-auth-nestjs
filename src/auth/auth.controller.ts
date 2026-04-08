@@ -64,10 +64,12 @@ export class AuthController {
    * If validation is successful, it clears the user's session cookies and
    * redirects to a success page. Otherwise, it redirects to an error page.
    *
-   * @param req - The Express request object, which contains the query parameters
-   *              and cookies.
-   * @param res - The Express response object, which is used to set headers and
-   *              redirect the user.
+   * @param req - The incoming Express request object, which contains the
+   * URL and its search parameters, including the `state` from the IdP.
+   * @param res - The Express response object, used to send the redirect and
+   * the cookie-clearing headers.
+   * @returns A redirect response that either redirects the user to a success
+   * or error page. Upon success, it includes headers to delete session cookies.
    */
   @Get('logout/callback')
   @Public()
@@ -81,6 +83,12 @@ export class AuthController {
 
     if (state && logoutStateCookie && state === logoutStateCookie) {
       res.header('Clear-Site-Data', '"cookies"');
+      for (const name of Object.keys(reqWithCookies.cookies ?? {})) {
+        if (name.includes('authjs.')) {
+          res.clearCookie(name, { path: '/' });
+        }
+      }
+      res.clearCookie('logout_state', { path: '/auth/logout/callback' });
       res.redirect('/auth/logout/success');
       return;
     } else {
