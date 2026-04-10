@@ -10,5 +10,6 @@ export default async () => {
   process.env.ZITADEL_CLIENT_SECRET = 'test-client-secret';
   process.env.ZITADEL_CALLBACK_URL = 'http://localhost:3000/auth/callback';
   process.env.ZITADEL_POST_LOGIN_URL = '/profile';
-  process.env.ZITADEL_POST_LOGOUT_URL = 'http://localhost:3000';
+  process.env.ZITADEL_POST_LOGOUT_URL =
+    'http://localhost:3000/auth/logout/callback';
 };
