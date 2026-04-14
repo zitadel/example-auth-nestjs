@@ -38,7 +38,7 @@ You'll need a ZITADEL account and application configured. Follow the [ZITADEL do
 
 ### Configuration
 
-To run the application, you first need to copy the `.env.example` file to a new file named `.env.local` and fill in your ZITADEL application credentials.
+To run the application, you first need to copy the `.env.example` file to a new file named `.env` and fill in your ZITADEL application credentials.
 
 ```dotenv
 # The environment in which the application is running. This should be set to
