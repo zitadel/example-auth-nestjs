@@ -1,5 +1,6 @@
 {
   "name": "example-nestjs-auth",
+  "private": true,
   "scripts": {
     "prepack": "tsc",
     "start": "nest start --watch",
