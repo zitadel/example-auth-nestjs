@@ -63,10 +63,10 @@ SESSION_SECRET="your-very-secret-and-strong-session-key"
 # node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 SESSION_SALT="your-very-secret-and-strong-session-salt"
 
-# The total duration of the session in milliseconds. After this period of
+# The total duration of the session in seconds. After this period of
 # inactivity, the user will be effectively logged out.
-# Default is 3600000, which is 1 hour (60 * 60 * 1000).
-SESSION_DURATION=3600000
+# Default is 3600, which is 1 hour (60 * 60).
+SESSION_DURATION=3600
 
 # Your ZITADEL instance domain URL. Found in your ZITADEL console under
 # instance settings. Include the full https:// URL.

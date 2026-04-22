@@ -116,7 +116,7 @@ const config: Required<
   ZITADEL_POST_LOGOUT_URL: process.env.ZITADEL_POST_LOGOUT_URL ?? '/',
   SESSION_SECRET: must('SESSION_SECRET'),
   SESSION_SALT: must('SESSION_SALT'),
-  SESSION_DURATION: Number(process.env.SESSION_DURATION ?? '3600000'),
+  SESSION_DURATION: Number(process.env.SESSION_DURATION ?? '3600'),
   PORT: process.env.PORT ?? '3000',
   NODE_ENV: process.env.NODE_ENV,
   SESSION_COOKIE_PATH: process.env.SESSION_COOKIE_PATH ?? '/',
