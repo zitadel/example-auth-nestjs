@@ -30,7 +30,9 @@ async function bootstrap(): Promise<void> {
   app.set('views', join(__dirname, '..', 'res'));
 
   await app.listen(Number(process.env.PORT || 3000));
-  console.log(`⇢ Application is running on: ${await app.getUrl()}`);
+  console.log(
+    `Stateless server with NestJS running on port ${process.env.PORT || 3000}`,
+  );
 }
 
 // noinspection JSIgnoredPromiseFromCall
