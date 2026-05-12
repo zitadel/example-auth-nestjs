@@ -131,15 +131,6 @@ Built-in session management with Auth.js handles user authentication state acros
 
 Protected routes automatically redirect unauthenticated users to the login flow using NestJS Guards, ensuring sensitive areas of your application remain secure. The `@Public()` decorator allows specific routes to bypass authentication.
 
-### NestJS Integration
-
-Leverages NestJS features including:
-
-- **Guards**: Global authentication guard with `@Public()` decorator for public routes
-- **Decorators**: `@AuthSession()` parameter decorator for accessing session data
-- **Modules**: Clean separation of concerns with dedicated AuthModule
-- **Dependency Injection**: Seamless integration with NestJS's DI system
-
 ### Logout Flow
 
 Complete logout implementation that properly terminates both the local session and the ZITADEL session, with proper redirect handling.
