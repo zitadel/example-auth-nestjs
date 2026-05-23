@@ -29,7 +29,7 @@
     "dotenv": "^16.5.0",
     "express-handlebars": "^8.0.1",
     "openid-client": "^6.6.3",
-    "qs": "^6.14.2"
+    "qs": "^6.15.2"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^20.5.0",
