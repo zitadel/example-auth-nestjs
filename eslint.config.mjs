@@ -1,50 +1,31 @@
 import js from '@eslint/js';
-import tsParser from '@typescript-eslint/parser';
-import tsPlugin from '@typescript-eslint/eslint-plugin';
+import ts from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
 import globals from 'globals';
 
-export default [
+export default ts.config(
   {
-    ignores: ['**/dist/'],
+    ignores: ['node_modules/**', 'dist/**', 'build/**', 'coverage/**'],
   },
   js.configs.recommended,
+  ...ts.configs.recommended,
   {
-    files: ['**/*.js'],
+    files: ['**/*.ts'],
     languageOptions: {
-      globals: globals.node,
+      parser: ts.parser,
+      parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+      globals: { ...globals.browser, ...globals.node, ...globals.es2021 },
     },
   },
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: ['**/*.{js,mjs}'],
     languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
-      globals: { ...globals.es2020, ...globals.node },
-    },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-    },
-    rules: {
-      ...tsPlugin.configs.recommended.rules,
+      globals: { ...globals.node, ...globals.es2021 },
     },
   },
   {
-    files: [
-      '**/*.test.ts',
-      '**/*.test.js',
-      '**/*.spec.ts',
-      '**/*.spec.js',
-      'test/**/*.ts',
-      'test/**/*.js',
-    ],
-    languageOptions: {
-      globals: {
-        ...globals.jest,
-        ...globals.node,
-      },
-    },
+    files: ['**/*.{test,spec}.{ts,js,mjs}', 'test/**/*.{ts,js,mjs}'],
+    languageOptions: { globals: { ...globals.jest, ...globals.node } },
   },
-];
+  prettier,
+);
