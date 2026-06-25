@@ -31,6 +31,9 @@
     "openid-client": "^6.6.3",
     "qs": "^6.15.2"
   },
+  "overrides": {
+    "multer": "2.2.0"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^9.38.0",
